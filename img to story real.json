@@ -1,0 +1,412 @@
+{
+  "id": "d4368a41-4d23-4e27-b240-d5fb173e5324",
+  "revision": 0,
+  "last_node_id": 20,
+  "last_link_id": 27,
+  "nodes": [
+    {
+      "id": 11,
+      "type": "LlavaCaptioner",
+      "pos": [
+        258.4193420410156,
+        944.5894775390625
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-LLaVA-Captioner",
+        "ver": "8fcd56888ca9eb13d7dd91ab0e6431ebc2ccfc9c",
+        "Node name for S&R": "LlavaCaptioner"
+      },
+      "widgets_values": [
+        null,
+        null,
+        "Please describe this image in 10 to 20 words.",
+        40,
+        0.2
+      ]
+    },
+    {
+      "id": 17,
+      "type": "easy showAnything",
+      "pos": [
+        1334.472900390625,
+        380.6731872558594
+      ],
+      "size": [
+        364.0618591308594,
+        519.3560791015625
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "anything",
+          "shape": 7,
+          "type": "*",
+          "link": 21
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "1.3.1",
+        "Node name for S&R": "easy showAnything"
+      },
+      "widgets_values": [
+        "The whimsical and playful scene depicted in this image conveys a sense of curiosity, learning, and perhaps even discovery. The young boy-like character with glasses and blue pants, holding a pencil and clipboard, is likely an embodiment of intellectual or academic pursuits.\n\nThe vibrant blue background adds to the overall fun and imaginative atmosphere while also grounding the figure in the scene. The real-life representation of the cartoon character in the foreground introduces a sense of depth and reality to the image, suggesting that the character might be based on a real person or perhaps even a self-portrait of the creator.\n\nThe gesture of holding a pencil and clipboard implies an active learning process – possibly taking notes, sketching ideas, or working through a problem. The implied action or emotion could be one of surprise or realization, given the objects being held, which might suggest that the character is struck by a new idea, discovery, or understanding.\n\nOverall, this whimsical and playful scene captures the essence of curiosity, learning, and creativity while also incorporating elements of depth and reality to create an intriguing and endearing image."
+      ]
+    },
+    {
+      "id": 18,
+      "type": "OllamaGenerate",
+      "pos": [
+        894.8645629882812,
+        431.64190673828125
+      ],
+      "size": [
+        400,
+        232
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "response",
+          "type": "STRING",
+          "links": [
+            21
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-ollama",
+        "ver": "2.0.6",
+        "Node name for S&R": "OllamaGenerate"
+      },
+      "widgets_values": [
+        "You are a creative storyteller. Given the following image caption, generate 5 short scene descriptions that can be used to create a story with 5 frames. Each scene should be visually distinct but logically connected, as if they are progressing through a narrative.\n\nImage Caption:\n\"{caption}\"\n\nOutput format:\n1. [Scene 1 description]\n2. [Scene 2 description]\n3. [Scene 3 description]\n4. [Scene 4 description]\n5. [Scene 5 description]\n\nKeep each scene short and vivid, suitable for image generation.\n",
+        "disable",
+        "http://127.0.0.1:11434",
+        "deval/llama3-iterative-dpo-final-q5_k_m:latest",
+        5,
+        "text",
+        true
+      ]
+    },
+    {
+      "id": 19,
+      "type": "OllamaGenerateAdvance",
+      "pos": [
+        703.8338012695312,
+        879.0569458007812
+      ],
+      "size": [
+        400,
+        498
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "context",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "name": "system",
+          "type": "STRING",
+          "widget": {
+            "name": "system"
+          },
+          "link": 27
+        }
+      ],
+      "outputs": [
+        {
+          "name": "response",
+          "type": "STRING",
+          "links": [
+            18
+          ]
+        },
+        {
+          "name": "context",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-ollama",
+        "ver": "2.0.6",
+        "Node name for S&R": "OllamaGenerateAdvance"
+      },
+      "widgets_values": [
+        "You are a creative prompt engineer for an AI art generator that produces child-friendly, cartoon-style images. You are given a 5-part story for kids. Convert each scene into a single, vivid prompt designed to generate a 3D cartoon-style image (similar to Pixar or DreamWorks style). Focus on bright colors, stylized realism, smooth surfaces, and a magical, joyful tone. Keep the prompt short but descriptive. Separate all five prompts using a vertical bar `|`. Maintain the scene order.",
+        false,
+        "http://127.0.0.1:11434",
+        "deval/llama3-iterative-dpo-final-q5_k_m:latest",
+        "You are a creative storyteller for kids.",
+        1743163354,
+        "randomize",
+        40,
+        0.9,
+        0.8,
+        -1,
+        1,
+        5,
+        false,
+        "text",
+        true
+      ]
+    },
+    {
+      "id": 20,
+      "type": "easy showAnything",
+      "pos": [
+        1185.5089111328125,
+        1098.6278076171875
+      ],
+      "size": [
+        397.4325866699219,
+        415.7763366699219
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "anything",
+          "shape": 7,
+          "type": "*",
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "1.3.1",
+        "Node name for S&R": "easy showAnything"
+      },
+      "widgets_values": [
+        "| Discovering Magical Abilities: Rani touches a luminescent flower, creating an enchanting creature that bestows wishes. Capture her delighted expression amidst soft pastels and radiant glow.\n|\n| Fierce Ally: A resplendent tiger joins Rani on her quest, their bond evident in the playful gaze and loyal stance against a lush forest backdrop.\n|\n| Diamond River Dilemma: Rani and her friends navigate a mesmerizing river filled with diamonds that lull all creatures into sleep. Illustrate a mid-sleeping scene amidst shimmering hues of sapphire and gold.\n|\n| Grandmother's Mountain Wisdom: Elderly wisdom incarnated, Rani’s grandma atop an awe-inspiring mountain, sharing knowledge as they embrace in warm pastels with cascading waterfalls below.\n|\n| Heroic Confrontation: In a climactic battle, Rani wielding her magical staff, radiating courage against the dark sorcerer. A victorious scene of triumph over shadows in bold contrasts and radiant light beams. |"
+      ]
+    },
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [
+        -520.2988891601562,
+        510.4089660644531
+      ],
+      "size": [
+        274.080078125,
+        314
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            11
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.43",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "ComfyUI_temp_kyyjv_00022_.png",
+        "image"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "OllamaVision",
+      "pos": [
+        -203.01956176757812,
+        493.0591125488281
+      ],
+      "size": [
+        400,
+        256
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "description",
+          "type": "STRING",
+          "links": [
+            13
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-ollama",
+        "ver": "2.0.6",
+        "Node name for S&R": "OllamaVision"
+      },
+      "widgets_values": [
+        "Imagine the uploaded image is the beginning of a children's animated story. Write 5 connected descriptive prompts, each representing a distinct keyframe from different parts of the story. The story should progress visually and narratively with each scene, like a storyboard for a short film.\n\nRequirements:\n- Each prompt must describe a **vivid, self-contained moment** that can be used in a 3D cartoon-style image generator like Flux Kontext.\n- The scenes should be **visually different from each other**, not just variations of the same setting.\n- Make the storyline progress clearly — like beginning → discovery → adventure → climax → resolution.\n- The style must be **child-friendly, colorful, and cinematic**.\n- Do NOT use numbering or scene labels.\n- Return all 5 prompts inside one pair of curly braces `{}` and separate them with a pipe `|` symbol.\n- Output format: {prompt 1 | prompt 2 | prompt 3 | prompt 4 | prompt 5}\n- Do not include any other explanation or text.\n",
+        "enable",
+        "http://127.0.0.1:11434",
+        "llama3.2-vision:11b",
+        5,
+        "text",
+        286051029,
+        "fixed"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "easy showAnything",
+      "pos": [
+        223.7484588623047,
+        545.8722534179688
+      ],
+      "size": [
+        447.2240905761719,
+        294.6202392578125
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "anything",
+          "shape": 7,
+          "type": "*",
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": [
+            27
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "1.3.1",
+        "Node name for S&R": "easy showAnything"
+      },
+      "widgets_values": [
+        "{A smiling sun with a happy face, surrounded by a blue cloud and a green kite, floats in a clear sky. | A little girl with pink pigtails and a red dress, holding a yellow flower, stands in front of a purple house with a red door. | The girl and a boy with blue hair and a green shirt are walking hand-in-hand through a field of colorful flowers, with a blue bird flying above them. | The girl and the boy are standing on a hill, looking out at a vast, rolling landscape of green hills and blue skies. | The girl and the boy are sitting on a bench, watching a beautiful sunset with a bright orange sky and a few pink clouds.}"
+      ]
+    }
+  ],
+  "links": [
+    [
+      11,
+      1,
+      0,
+      12,
+      0,
+      "IMAGE"
+    ],
+    [
+      13,
+      12,
+      0,
+      14,
+      0,
+      "*"
+    ],
+    [
+      18,
+      19,
+      0,
+      20,
+      0,
+      "*"
+    ],
+    [
+      21,
+      18,
+      0,
+      17,
+      0,
+      "*"
+    ],
+    [
+      27,
+      14,
+      0,
+      19,
+      1,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.814027493868403,
+      "offset": [
+        757.3536874688119,
+        -322.259124489726
+      ]
+    },
+    "frontendVersion": "1.23.4"
+  },
+  "version": 0.4
+}
